@@ -214,7 +214,7 @@ fn draw_triangle_wireframe(tri: Triangle, xoffset: i32, yoffset: i32, renderer: 
 	}
 }
 
-fn draw_triangle_solid(tri: Triangle, xoffset: i32, yoffset: i32, renderer: &mut render::Renderer) {
+fn draw_triangle_solid(tri: Triangle, xoffset: i32, yoffset: i32, texture: &mut render::Texture) {
 	let sort_tri = tri.sort();
 
 	let mut slope_left = sort_tri.v0().slope(&sort_tri.v1());
@@ -244,19 +244,27 @@ fn draw_triangle_solid(tri: Triangle, xoffset: i32, yoffset: i32, renderer: &mut
 	let begin: i32 = sort_tri.v0().y() as i32;
 	let end: i32 = if sort_tri.v1().y() > sort_tri.v2().y() { sort_tri.v1().y() as i32 } else { sort_tri.v2().y() as i32 };
 
-	for y in 0..(end-begin)/8 {
-		
-		let mut begin_x: i32 = (((y*8) as f32)*slope_left + top_left) as i32;
-		let mut end_x: i32 = (((y*8) as f32)*slope_right + top_right) as i32;
+	texture.with_lock(None, |pixels: &mut [u8], pitch: usize| {
+		for y in begin..end {
 
-		if end_x < begin_x {
-			std::mem::swap(&mut begin_x, &mut end_x);
+			let mut begin_x: i32 = (((y-begin) as f32)*slope_left + top_left) as i32;
+			let mut end_x: i32 = (((y-begin) as f32)*slope_right + top_right) as i32;
+
+			if end_x < begin_x {
+				std::mem::swap(&mut begin_x, &mut end_x);
+			}
+
+			for x in begin_x..end_x {
+				let offset = (x*3) as usize + (y as usize) * pitch;
+				pixels[offset + 0] = 0xc9;
+				pixels[offset + 1] = 0x99;
+				pixels[offset + 2] = 0x30;
+			}
+
+			//renderer.set_draw_color(sdl2::pixels::Color::RGB(0xc9,0x99,0x30));
+			//renderer.draw_line(sdl2::rect::Point::new(begin_x + xoffset, y*8 + begin + yoffset), sdl2::rect::Point::new(end_x + xoffset, y*8 + begin + yoffset));
 		}
-
-		renderer.set_draw_color(sdl2::pixels::Color::RGB(0xc9,0x99,0x30));
-		renderer.draw_line(sdl2::rect::Point::new(begin_x + xoffset, y*8 + begin + yoffset), sdl2::rect::Point::new(end_x + xoffset, y*8 + begin + yoffset));
-
-	}
+	}).unwrap();
 
 	//renderer.draw_line(sdl2::rect::Point::new(x as i32 + xoffset, y as i32 + yoffset), sdl2::rect::Point::new(x1 as i32 + xoffset, y1 as i32 + yoffset));
 	//renderer.draw_line(sdl2::rect::Point::new(x as i32 + xoffset, y as i32 + yoffset), sdl2::rect::Point::new(x1 as i32 + xoffset, y1 as i32 + yoffset));
@@ -270,6 +278,8 @@ fn main() {
 	let mut is_moving_vert = false;
 
 	let mut running = true;
+    
+	let mut texture = renderer.create_texture_streaming(pixels::PixelFormatEnum::RGB24, 1024, 1024).unwrap();
 
 	while running {
 		for event in event_pump.poll_iter() {
@@ -301,16 +311,29 @@ fn main() {
 		renderer.set_draw_color(sdl2::pixels::Color::RGB(0x00,0x00,0x00));
 		renderer.clear();
 
+		texture.with_lock(None, |pixels: &mut [u8], pitch: usize| {
+			for y in 0..1024 {
+				for x in 0..1024 {
+					let offset = (x*3) as usize + (y as usize) * pitch;
+
+					pixels[offset + 0] = 0;
+					pixels[offset + 1] = 0;
+					pixels[offset + 2] = 0;
+				}
+			}
+		}).unwrap();
+
 		{
 			let (fix1, fix2) = fix_triangle(&mut tri1);
 			//draw_triangle_wireframe(tri1, 0, 0, &mut renderer);
 			//draw_triangle_wireframe(fix1, 0, 0, &mut renderer);
 			draw_triangle_wireframe(fix2, 16, 0, &mut renderer);
 
-			draw_triangle_solid(fix1, 16, 0, &mut renderer);
-			draw_triangle_solid(fix2, 16, 0, &mut renderer);
+			draw_triangle_solid(fix1, 16, 0, &mut texture);
+			draw_triangle_solid(fix2, 16, 0, &mut texture);
 		}
 		
+		renderer.copy(&texture, None, None).unwrap();
 		renderer.set_draw_color(sdl2::pixels::Color::RGB(0xc6,0x99,0x39));
 		let (x,y) = tri1.get_vert(current_vert);
 		renderer.draw_rect(sdl2::rect::Rect::new(x as i32 - 8,y as i32 - 8, 16, 16));
