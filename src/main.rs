@@ -223,9 +223,9 @@ fn draw_triangle_solid(tri: Triangle, xoffset: i32, yoffset: i32, renderer: &mut
 	let mut top_right = sort_tri.v0().x();
 
 	if sort_tri.v1().y() != sort_tri.v2().y() {
-		slope_left = sort_tri.v0().slope(&sort_tri.v1());
 
 		if sort_tri.v0().y() == sort_tri.v1().y() {
+			slope_left = sort_tri.v0().slope(&sort_tri.v2());
 			slope_right = sort_tri.v1().slope(&sort_tri.v2());
 			top_right = sort_tri.v1().x();
 		} else {
@@ -234,10 +234,18 @@ fn draw_triangle_solid(tri: Triangle, xoffset: i32, yoffset: i32, renderer: &mut
 		}
 	}
 
+	if top_left > top_right {
+		std::mem::swap(&mut slope_right, &mut slope_left);
+		std::mem::swap(&mut top_left, &mut top_right);
+		//top_left = sort_tri.v1().x();
+		//top_right = sort_tri.v0().x();
+	}
+
 	let begin: i32 = sort_tri.v0().y() as i32;
 	let end: i32 = if sort_tri.v1().y() > sort_tri.v2().y() { sort_tri.v1().y() as i32 } else { sort_tri.v2().y() as i32 };
 
 	for y in 0..(end-begin)/8 {
+		
 		let mut begin_x: i32 = (((y*8) as f32)*slope_left + top_left) as i32;
 		let mut end_x: i32 = (((y*8) as f32)*slope_right + top_right) as i32;
 
@@ -297,10 +305,10 @@ fn main() {
 			let (fix1, fix2) = fix_triangle(&mut tri1);
 			//draw_triangle_wireframe(tri1, 0, 0, &mut renderer);
 			//draw_triangle_wireframe(fix1, 0, 0, &mut renderer);
-			draw_triangle_wireframe(fix2, 0, 0, &mut renderer);
+			draw_triangle_wireframe(fix2, 16, 0, &mut renderer);
 
-			draw_triangle_solid(fix1, 0, 0, &mut renderer);
-			draw_triangle_solid(fix2, 0, 0, &mut renderer);
+			draw_triangle_solid(fix1, 16, 0, &mut renderer);
+			draw_triangle_solid(fix2, 16, 0, &mut renderer);
 		}
 		
 		renderer.set_draw_color(sdl2::pixels::Color::RGB(0xc6,0x99,0x39));
