@@ -5,3 +5,5 @@ authors = ["patrick"]
 
 [dependencies]
 sdl2 = "0.28"
+unborrow = "0.3.1"
+text_io = "0.1.6"
