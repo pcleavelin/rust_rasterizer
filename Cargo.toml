@@ -3,6 +3,9 @@ name = "SoftwareRasterizer"
 version = "0.1.0"
 authors = ["patrick"]
 
+[profile.dev]
+opt-level = 0
+
 [dependencies]
 sdl2 = "0.28"
 unborrow = "0.3.1"

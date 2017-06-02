@@ -1,0 +1,23 @@
+sector : 10, 0 > 1.47714e+029, 8.99917e-039 - 0
+vertex 12, 34
+vertex 35, 34
+vertex 35, 11
+vertex 34, 11
+vertex 31, 11
+vertex 30, 11
+vertex 17, 11
+vertex 16, 11
+vertex 13, 11
+vertex 12, 11
+vertex 12, 34
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor -1

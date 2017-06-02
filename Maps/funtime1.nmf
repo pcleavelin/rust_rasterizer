@@ -1,0 +1,309 @@
+//Sector 0
+sector : 6, -3 > 0, 0
+vertex -5, -5
+vertex -5, 5
+vertex 5, 5
+vertex 5, 4.5
+vertex 5, 3
+vertex 5, 2.5
+vertex 5, -2.5
+vertex 5, -3
+vertex 5, -4.5
+vertex 5, -5
+vertex -5, -5
+neighbor 2
+neighbor -1
+neighbor -1
+neighbor 14
+neighbor -1
+neighbor 17
+neighbor -1
+neighbor 15
+neighbor -1
+neighbor 1
+neighbor -1
+
+//Sector 1
+sector : 2, -3
+vertex 5, -5
+vertex 5, -50
+vertex -5, -50
+vertex -5, -10
+vertex -5, -5
+vertex 5, -5
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor 10
+neighbor 0
+neighbor -1
+
+//Sector 2
+sector : 7, -2 > 0, -4 - 1
+vertex -5, -5
+vertex -8, -5
+vertex -8, 5
+vertex -5, 5
+vertex -5, -5
+neighbor -1
+neighbor 3
+neighbor -1
+neighbor 0
+neighbor -1
+
+//Sector 3
+sector : 8, -1 > 0, -4 - 2
+vertex -8, -5
+vertex -11, -5
+vertex -11, 5
+vertex -8, 5
+vertex -8, -5
+neighbor -1
+neighbor 4
+neighbor -1
+neighbor 2
+neighbor -1
+
+//Sector 4
+sector : 9, 0 > 0, -4 - 1.34
+vertex -11, -5
+vertex -14, -5
+vertex -14, 5
+vertex -11, 5
+vertex -11, -5
+neighbor -1
+neighbor 5
+neighbor -1
+neighbor 3
+neighbor -1
+
+
+//Sector 5
+sector : 10, 1 > 0, -4 - 2.98
+vertex -14, -5
+vertex -20, -5
+vertex -20, -2.5
+vertex -20, 2.5
+vertex -20, 5
+vertex -14, 5
+vertex -14, -5
+neighbor -1
+neighbor 7
+neighbor 6
+neighbor 8
+neighbor -1
+neighbor 4
+neighbor -1
+
+//Sector 6 - Column
+sector : 6, 1 > 9, 4 - 2
+vertex -20, -2.5
+vertex -25, -2.5
+vertex -25, 2.5
+vertex -20, 2.5
+vertex -20, -2.5
+neighbor 7
+neighbor 9
+neighbor 8
+neighbor 5
+neighbor -1
+
+//Sector 7
+sector : 10, 1
+vertex -20, -5
+vertex -25, -5
+vertex -25, -2.5
+vertex -20, -2.5
+vertex -20, -5
+neighbor -1
+neighbor 9
+neighbor 6
+neighbor 5
+neighbor -1
+
+//Sector 8
+sector : 10, 1
+vertex -20, 2.5
+vertex -25, 2.5
+vertex -25, 5
+vertex -20, 5
+vertex -20, 2.5
+neighbor 6
+neighbor 9
+neighbor -1
+neighbor 5
+neighbor -1
+
+//Sector 9
+sector : 10, 1
+vertex -25, -5
+vertex -30, -5
+vertex -30, 5
+vertex -25, 5
+vertex -25, 2.5
+vertex -25, -2.5
+vertex -25, -5
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor 8
+neighbor 6
+neighbor 7
+neighbor -1
+
+//Sector 10
+sector : 2, -3
+vertex -5, -10
+vertex -10, -10
+vertex -10, -5
+vertex -9, -5
+vertex -6, -5
+vertex -5, -5
+vertex -5, -10
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor 11
+neighbor -1
+neighbor 1
+neighbor -1
+
+//Sector 11 - First Non-euclidian sector
+sector : 2, -3
+vertex -9, -5
+vertex -9, 5
+vertex -6, 5
+vertex -6, -5
+vertex -9, -5
+neighbor -1
+neighbor -1
+neighbor 12
+neighbor 10
+neighbor -1
+
+//Sector 12
+sector : 5, -5
+vertex -6, 5
+vertex 4, 5
+vertex 4, -5
+vertex 2, -5
+vertex -2, -5
+vertex -6, -5
+vertex -6, 5
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor 13
+neighbor -1
+neighbor 11
+neighbor -1
+
+//Sector 13
+sector : 2, -9
+vertex 2, -5
+vertex 2, -25
+vertex -2, -25
+vertex -2, -5
+vertex 2, -5
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor 12
+neighbor -1
+
+//Crazy hallways
+//Sector 14
+sector : 3, -3
+vertex 5, 4.5
+vertex 10, 4.5
+vertex 10, 3
+vertex 8, 3
+vertex 5, 3
+vertex 5, 4.5
+neighbor -1
+neighbor -1
+neighbor 16
+neighbor -1
+neighbor 0
+neighbor -1
+
+//Sector 15
+sector : 3, -3
+vertex 5, -3
+vertex 8, -3
+vertex 10, -3
+vertex 10, -4.5
+vertex 5, -4.5
+vertex 5, -3
+neighbor -1
+neighbor 16
+neighbor -1
+neighbor -1
+neighbor 0
+neighbor -1
+
+//Sector 16
+sector : 3, -3
+vertex 10, 3
+vertex 10, -3
+vertex 8, -3
+vertex 8, 3
+vertex 10, 3
+neighbor -1
+neighbor 15
+neighbor -1
+neighbor 14
+neighbor -1
+
+//Sector 17
+sector : 3, -3
+vertex 5, 2.5
+vertex 12, 2.5
+vertex 12, -2.5
+vertex 5, -2.5
+vertex 5, 2.5
+neighbor -1
+neighbor 18
+neighbor -1
+neighbor 0
+neighbor -1
+
+//Sector 18 - ELEVATOR
+sector : 3, -3 > 0, -20 - 5
+vertex 12, -2.5
+vertex 12, 2.5
+vertex 16, 2.5
+vertex 16, -2.5
+vertex 12, -2.5
+neighbor 17
+neighbor 20
+neighbor 19
+neighbor -1
+neighbor -1
+
+//Sector 19
+sector : 3, -3
+vertex 16, -2.5
+vertex 16, 2.5
+vertex 20, 2.5
+vertex 20, -2.5
+vertex 16, -2.5
+neighbor 18
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor -1
+
+//Sector 20
+sector : -17, -23
+vertex 16, 2.5
+vertex 12, 2.5
+vertex 0, 40
+vertex 28, 40
+vertex 16, 2.5
+neighbor 18
+neighbor -1
+neighbor -1
+neighbor -1
+neighbor -1
+END
